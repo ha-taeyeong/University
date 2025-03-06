@@ -11,7 +11,7 @@ public class ex03 {
 		int rnd;
 		
 		for(int i=0; i < arr.length; i++) {
-			rnd = (int)(Math.random()*90 + 10);
+			rnd = (int)(Math.random()*90) + 10;
 			arr[i] += rnd;
 		}
 		

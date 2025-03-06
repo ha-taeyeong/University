@@ -9,8 +9,8 @@ public class ex02 {
 		int rnd1, rnd2, count = 0, sum = 0;
 				
 		do {
-			rnd1 = (int)(Math.random()*6+1);
-			rnd2 = (int)(Math.random()*6+1);
+			rnd1 = (int)(Math.random()*6)+1;
+			rnd2 = (int)(Math.random()*6)+1;
 			
 			count++;
 			sum = rnd1 + rnd2;
