@@ -12,7 +12,7 @@ public class ex03 {
 		
 		for(int i=0; i < arr.length; i++) {
 			rnd = (int)(Math.random()*90) + 10;
-			arr[i] += rnd;
+			arr[i] = rnd;
 		}
 		
 		int min = arr[0];
