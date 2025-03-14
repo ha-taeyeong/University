@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <script>
+        // JS에서 Object.defineProperty or Object.defineProperties를 사용해 객체의 프로퍼티를 수정할 수 있다.
+        function User(name, department) {
+            var _department = department;
+            var _name = name;
+            Object.defineProperty(this, 'name', {
+            value: _name,
+            writable: true,
+            enumerable: true,
+            configurable: false // name 재정의 X
+            });
+            Object.defineProperty(this, 'department', {
+            get: function() {
+                console.log('Retrieving department');
+                return _department;
+            },
+            set: function (newValue) {
+                console.log('Updating department value to "' + newValue + '"');
+                _department = newValue;
+            },
+            enumerable: true,
+            configurable: true
+            });
+            Object.defineProperty(this, 'greeting', {
+            value: function () {
+                console.log('Hi, I\'m ' + _name + '.');
+            },
+            enumerable: false,
+            configurable: false
+            });
+        }
+        var user = new User('Sunny', 'Engineering');
+        console.log(user.department);
+        user.department = 'Marketing';
+        user.greeting();
+        // name 재정의
+        // Object.defineProperty(user, 'name', {
+        //   enumerable: false
+        // });
+        delete user.name;
+        delete user.department;
+        for (var prop in user) {
+            console.log(prop); // department는 이미 삭제됐고, greeting 프로퍼티는 열거할 수 없기 때문에 'name'만 출력한다.
+        }
+    </script>
+    <title>test</title>
+  </head>
+  <body>
+    
+  </body>
+</html>

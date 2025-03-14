@@ -1,0 +1,12 @@
+package week2.test;
+
+public class ContactTest {
+
+	public static void main(String[] args) {
+		
+		Contact contact = new Contact("hallym",); // 클래스 객체 생성, ():생성자 호출
+		contact.show();
+		
+	}
+
+}
