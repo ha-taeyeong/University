@@ -1,5 +1,6 @@
-GitRepositoriesView.GitDirectories=C\:\\Users\\Hataeyeong\\git\\University\\.git;
-GitRepositoriesView.GitDirectories.relative=C\:\\Users\\Hataeyeong\\git\\University\\.git;
+GitRepositoriesView.GitDirectories=
+GitRepositoriesView.GitDirectories.relative=
 RepositoryGroups.uuids=
-RepositorySearchDialogSearchPath=C\:\\Study\\java\\.git
+RepositorySearchDialogDeepSearch=false
+RepositorySearchDialogSearchPath=C\:\\Study\\.git
 eclipse.preferences.version=1

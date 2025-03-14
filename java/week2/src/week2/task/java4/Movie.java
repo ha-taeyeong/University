@@ -1,5 +1,10 @@
 package week2.task.java4;
-
+/*
+ * 영화 Movie 클래스를 정의하여 하시오.
+ * Movie 클래스는 영화 제목, 평점, 감독, 발표된 연도 등의 필드를 가진다.
+ * Movie 클래스를 작성하고 객체를 생성하여 모든 필드 정보를 출력한다.
+ * 필드는 객체 생성시 생성자를 호출하여 초기화 한다
+ */
 class Movie {
 	
 	private String title	; // 제목
