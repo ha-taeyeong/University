@@ -8,6 +8,7 @@
 	</list>
 	<list key="RepositorySelectionPage.UsedUris">
 		<item value="https://github.com/ha-taeyeong/University.git"/>
+		<item value="file://C:\Users\Hataeyeong\git\University"/>
 		<item value="https://github.com/ha-taeyeong/Study.git"/>
 	</list>
 	<list key="EGit.KnownHosts">
@@ -32,6 +33,9 @@
 			<item value="empty"/>
 		</list>
 		<list key="C:\Study\java\.git">
+			<item value="empty"/>
+		</list>
+		<list key="C:\Study\.git\.git">
 			<item value="empty"/>
 		</list>
 	</section>
