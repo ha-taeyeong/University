@@ -43,32 +43,20 @@ class Member {
 		System.out.println("name: " + name + "\nid: " + id + "\npassword: " + password + "\nage: " + age);
 	}
 	
+	// 설정자 메소드
 	public void setName (String name) {
 		this.name = name;
 	}
 	
-	public void setId (String name) {
-		this.name = name;
+	public void setId (String id) {
+		this.id = id;
 	}
 	
-	public void setName (String name) {
-		this.name = name;
+	public void setPassword (String password) {
+		this.password = password;
 	}
 	
-	public void setName (String name) {
-		this.name = name;
+	public void setAge (int age) {
+		this.age = age;
 	}
-	
-	public void setName (String name) {
-		this.name = name;
-	}
-//	public void resetMember(String newName, String newId, String newPassword, int newAge) {
-//		this.name 		= newName	 	;
-//		this.id 		= newId		 	;
-//		this.password 	= newPassword	;
-//		this.age 		= newAge		;
-//	}
-	
-	
-	
 }

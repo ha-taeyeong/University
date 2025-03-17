@@ -6,31 +6,50 @@ public class StudentManagerTest {
 
 	public static void main(String[] args) {
 		
-		int size = 5; // 최대 학생 수:5명
+		Scanner input = new Scanner(System.in);
+		// 학생 수 입력
+		System.out.print("학생수를 입력하세요:");
+		int numStudents = input.nextInt();
 		
-		StudentManager manager = new StudentManager(size);
+		// 학생 배열 선언
+		Student[] students = new Student[numStudents];
 		
-		Scanner sc = new Scanner(System.in); // 입력 함수
-		
-		for(int i=0; i < size; i++) {
-			System.out.print("학생 이름: ");
-			String name = sc.next();
+		// 학생 배열 값 넣기
+		for(int i=0; i < numStudents; i++) {
 			
-			System.out.print("학생 나이: ");
-			int age = sc.nextInt();
-
-			System.out.print("학생 점수: ");
-			int score = sc.nextInt();
-
-			manager.addStudent(new Student(name, age, score));
-		}
-		if(size == 5) {
-			System.out.println("학생 정보가 모두 입력되었습니다.");
+			System.out.println("========" + (i+1) + "번째 학생 " + "정보 입력========");
+			
+			// 학생 이름 입력
+			System.out.print("이름: ");
+			String name = input.next();
+			
+			// 학생 나이 입력
+			System.out.print("나이: ");
+			int age = input.nextInt();
+			
+			System.out.println("======================================");
+			
+			// 성적 수 입력
+			System.out.print((i+1)+"번째 학생의 성적 개수를 입력하세요:");
+			int numScores = input.nextInt();
+			
+			// 성적 배열 선언
+			int[] scores = new int[numScores];
+			
+			// 성적 배열 값 넣기
+			for(int j=0; j < numScores; j++) {
+				System.out.print((j+1)+"번째 성적: ");
+				scores[j] = input.nextInt();
+			}
+			students[i] = new Student(name, age, scores);
 		}
 		
-		manager.allshow(); 		// 전체출력 메소드 호출
-		manager.avgStudent(); 	// 평균점수 출력 메소드 호출
-		sc.close();				// 입력 함수 닫기
+		System.out.println("=======전체 학생 정보 ========");
+		for(Student student : students) {
+			student.show(); 		// 전체 학생 정보 출력
+			student.averageShow(); 	// 학생 평균 출력
+		}
+		input.close();
 		
 	}
 
