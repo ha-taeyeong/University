@@ -15,4 +15,6 @@
     <fullyQualifiedTypeName name="week2.task.Student"/>
     <fullyQualifiedTypeName name="week2.task.Member"/>
     <fullyQualifiedTypeName name="week2.task.java4.Movie"/>
+    <fullyQualifiedTypeName name="org.w3c.dom.css.Counter"/>
+    <fullyQualifiedTypeName name="week3.User"/>
 </qualifiedTypeNameHistroy>
