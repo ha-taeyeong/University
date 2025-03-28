@@ -5,10 +5,10 @@ class Member {
 	private String name;
 	private Date birthDate; // 집합 관계
 	
-	public Member(String name, int year, int month, int day) {
+	public Member(String name, Date date) {
 		this.memberId=(int)(Math.random()*90)+10;
 		this.name = name;
-		this.birthDate = new Date(year, month, day); // 사용 관계
+		this.birthDate = date; // 사용 관계
 	}
 	
 	@Override

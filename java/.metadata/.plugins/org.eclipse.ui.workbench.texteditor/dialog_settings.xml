@@ -6,16 +6,34 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="gender"/>
+		<item key="selection" value="phone"/>
 		<list key="findhistory">
+			<item value="tel"/>
+			<item value="score"/>
+			<item value="userNo"/>
+			<item value="sc"/>
+			<item value="arr"/>
+			<item value="meaning"/>
+			<item value="word"/>
+			<item value="meanig"/>
+			<item value="Person"/>
+			<item value="people"/>
 			<item value="userGender"/>
 			<item value="userBirth"/>
 			<item value="userName"/>
 			<item value="userPw"/>
 			<item value="userId"/>
-			<item value="userNo"/>
 		</list>
 		<list key="replacehistory">
+			<item value="phone"/>
+			<item value="mileage"/>
+			<item value="customerNumber"/>
+			<item value="in"/>
+			<item value="dim"/>
+			<item value="kor"/>
+			<item value="eng"/>
+			<item value="Word"/>
+			<item value="word"/>
 			<item value="gender"/>
 			<item value="birth"/>
 			<item value="name"/>
