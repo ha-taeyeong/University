@@ -1,14 +1,13 @@
 package week4.practice7;
 
 class Cat extends Animal {
-
-	public Cat(String name) {
-		super(name);
-	}
 	
-	@Override
-    public void sound() {
-        System.out.println("Cat says: 야옹");
+	public Cat(String name, int age) {
+		super(name, age);
+	}
+
+    public void meow() {
+        System.out.println("Meow!");
     }
 
 }

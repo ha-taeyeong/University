@@ -2,13 +2,12 @@ package week4.practice7;
 
 class Bird extends Animal {
 
-	public Bird(String name) {
-		super(name);
+	public Bird(String name, int age) {
+		super(name, age);
 	}
 	
-	@Override
-    public void sound() {
-        System.out.println("Bird says: 짹짹");
+    public void chirp() {
+        System.out.println("Chiurp!");
     }
 	
 }
