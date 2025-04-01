@@ -19,14 +19,9 @@ public class UserRestController {
 
     // Create User
     @PostMapping
-    public ResponseEntity<String> insertUser(@RequestBody User user) {
-        try {
-            int result = userService.insertUser(user);
-            return result > 0 ? ResponseEntity.status(201).body("User created successfully")
-                              : ResponseEntity.status(400).body("Error creating user");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Internal server error: " + e.getMessage());
-        }
+    public ResponseEntity<String> createUser(@RequestBody User user) {
+        int result = userService.createUser(user);
+        return result > 0 ? ResponseEntity.ok("User created successfully") : ResponseEntity.status(400).body("Error creating user");
     }
 
     // Get all Users

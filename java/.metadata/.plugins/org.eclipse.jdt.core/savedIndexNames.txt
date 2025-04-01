@@ -1,9 +1,9 @@
-INDEX VERSION 1.131+C:\Study\java\.metadata\.plugins\org.eclipse.jdt.core
-2370222310.index
-82306034.index
-1657330681.index
-1680154067.index
-2367783050.index
+INDEX VERSION 1.131+/Users/hataeyeong/Desktop/Study/University/java/.metadata/.plugins/org.eclipse.jdt.core
+2012739359.index
+2660520490.index
+2583270963.index
+3703194086.index
+15779721.index
+3918750396.index
+1663555328.index
 1865797976.index
-340781404.index
-4198598768.index

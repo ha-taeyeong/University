@@ -3,11 +3,11 @@ package com.example.myproject.controller;
 import com.example.myproject.model.User;
 import com.example.myproject.service.UserService;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -28,23 +28,24 @@ public class UserJspController {
     // Insert user
     @PostMapping("/insert")
     public String insertUser(User user) {
-        userService.insertUser(user);
+        userService.createUser(user);
         return "redirect:/users/select";
     }
-    
+
+    // Update page
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable int id, Model model) {
-        User user = userService.getUser(id);  // getUser() 메소드가 있어야 합니다.
+        User user = userService.getUser(id);
         model.addAttribute("user", user);
-        return "update";  // update.jsp로 이동
+        return "update"; // update.jsp
     }
 
     // Update user
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable int id, @ModelAttribute User user) {
-        user.setId(id); // 사용자 ID 설정
-        userService.updateUser(user); // 서비스에서 업데이트
-        return "redirect:/users/select"; // 수정 후 사용자 목록 페이지로 리디렉션
+    public String updateUser(@PathVariable int id, User user) {
+        user.setId(id);
+        userService.updateUser(user);
+        return "redirect:/users/select";
     }
 
     // Delete user
@@ -54,33 +55,12 @@ public class UserJspController {
         return "redirect:/users/select";
     }
 
-    // Select all users
+    // Select users
     @GetMapping("/select")
     public String getAllUsers(Model model) {
-        List<User> users = userService.getAllUsers();
+    	List<User> users = userService.getAllUsers();
+        System.out.println("Users from DB: " + users);  // 로그 추가
         model.addAttribute("users", users);
         return "select";
-    }
-
- // 이름으로 검색
-    @GetMapping("/searchByName")
-    public String searchUsersByName(@RequestParam(value = "name", required = false) String name, Model model) {
-        if (name == null || name.isEmpty()) {
-            return "redirect:/users/select";  // 이름이 없으면 목록 페이지로 리디렉션
-        }
-        List<User> users = userService.getUsersByName(name);  // 이름으로 사용자 검색
-        model.addAttribute("users", users);  // 모델에 검색된 사용자 리스트 추가
-        return "select";  // select.jsp 페이지로 이동
-    }
-
-    // 이메일로 검색
-    @GetMapping("/searchByEmail")
-    public String searchUsersByEmail(@RequestParam(value = "email", required = false) String email, Model model) {
-        if (email == null || email.isEmpty()) {
-            return "redirect:/users/select";  // 이메일이 없으면 목록 페이지로 리디렉션
-        }
-        List<User> users = userService.getUsersByEmail(email);  // 이메일로 사용자 검색
-        model.addAttribute("users", users);  // 모델에 검색된 사용자 리스트 추가
-        return "select";  // select.jsp 페이지로 이동
     }
 }

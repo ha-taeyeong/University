@@ -15,39 +15,23 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    // 유저 추가
-    public int insertUser(User user) {
+    public int createUser(User user) {
         return userDao.insertUser(user);
     }
 
-    // 유저 업데이트
     public int updateUser(User user) {
-        return userDao.updateUser(user);  // userDao에서 updateUser 메소드를 호출하여 영향을 받은 행의 개수를 반환
+        return userDao.updateUser(user);
     }
 
-    // 유저 삭제
     public int deleteUser(int id) {
-        return userDao.deleteUser(id);  // userDao에서 deleteUser 메소드를 호출하여 영향을 받은 행의 개수를 반환
+        return userDao.deleteUser(id);
     }
-    
-    // 유저 조회
+
     public User getUser(int id) {
-        return userDao.getUser(id);  // ID로 유저 조회
+        return userDao.selectUser(id);
     }
 
-    // 이름으로 유저 검색
-    public List<User> getUsersByName(String name) {
-        return userDao.getUsersByName(name);
-    }
-
-    // 이메일로 유저 검색
-    public List<User> getUsersByEmail(String email) {
-        return userDao.getUsersByEmail(email);
-    }
-
-    // 모든 유저 조회
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();  // 모든 유저 목록 조회
+        return userDao.getAllUsers();
     }
-
 }
