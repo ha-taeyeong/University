@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
-org.eclipse.jdt.core.classpathVariable.JRE_LIB=/private/var/folders/w_/n2lg_vtj5_x6flxjngvjgsjw0000gn/T/AppTranslocation/32324749-59FE-40F3-9A7A-9C47B55482CB/d/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.macosx.x86_64_17.0.2.v20220201-1208/jre/lib/jrt-fs.jar
-org.eclipse.jdt.core.classpathVariable.JRE_SRC=/private/var/folders/w_/n2lg_vtj5_x6flxjngvjgsjw0000gn/T/AppTranslocation/32324749-59FE-40F3-9A7A-9C47B55482CB/d/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.macosx.x86_64_17.0.2.v20220201-1208/jre/lib/src.zip
+org.eclipse.jdt.core.classpathVariable.JRE_LIB=/private/var/folders/w_/n2lg_vtj5_x6flxjngvjgsjw0000gn/T/AppTranslocation/6719C1F6-8E5F-49B4-8338-AF95FACB8BAA/d/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.macosx.x86_64_17.0.2.v20220201-1208/jre/lib/jrt-fs.jar
+org.eclipse.jdt.core.classpathVariable.JRE_SRC=/private/var/folders/w_/n2lg_vtj5_x6flxjngvjgsjw0000gn/T/AppTranslocation/6719C1F6-8E5F-49B4-8338-AF95FACB8BAA/d/Eclipse.app/Contents/Eclipse/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.macosx.x86_64_17.0.2.v20220201-1208/jre/lib/src.zip
 org.eclipse.jdt.core.classpathVariable.JRE_SRCROOT=
 org.eclipse.jdt.core.codeComplete.argumentPrefixes=
 org.eclipse.jdt.core.codeComplete.argumentSuffixes=
