@@ -21,6 +21,7 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2vFbuuXlkeypR9dfaWDorHPbUnH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -31,7 +32,9 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/hataeyeong/Desktop/Study/University/python&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -86,6 +89,10 @@
       <workItem from="1743777038242" duration="22000" />
       <workItem from="1743777063097" duration="2000" />
       <workItem from="1743777100756" duration="3000" />
+      <workItem from="1743850989654" duration="37000" />
+      <workItem from="1743851031120" duration="55000" />
+      <workItem from="1743851087835" duration="4000" />
+      <workItem from="1743851093657" duration="15000" />
     </task>
     <servers />
   </component>
