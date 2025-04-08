@@ -29,7 +29,7 @@ public class HourEmployee extends Person {
         this.workedHours = workedHours;
     }
 
-    // 메소드
+    @Override // 피드백 수정
     public int computeSalary() {
         return hourlySalary * workedHours; // 임금 계산
     }

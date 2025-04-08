@@ -9,8 +9,9 @@ public class AnimalTest {
                 new Dog(),
                 new Dog("Rock")
         };
+        // 피드백 수정
         for (Animal ani : pets) {
-            System.out.print("\n" + ani + "_" + ani.reaction(ani));
+            System.out.print("\n" + ani + ani.reaction(ani));
             ani.sound();
         }
         System.out.print("\n\nPet들 중 Dog는 " + Dog.getCountDog() + "마리\n");

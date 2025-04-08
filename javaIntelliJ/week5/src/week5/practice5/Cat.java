@@ -3,18 +3,14 @@ package week5.practice5;
 public class Cat extends Animal {
 
     // 생성자
+    // 피드백 수정
     public Cat(String name) {
-        super(name, false);
+        super(name);
     }
 
     // 메소드
     public Cat() {
         this("Anoymous");
-    }
-
-    @Override
-    public String getType() {
-        return "고양이";
     }
 
     @Override

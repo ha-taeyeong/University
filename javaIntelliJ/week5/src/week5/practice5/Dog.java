@@ -6,19 +6,15 @@ class Dog extends Animal {
     private static int countDog = 0;
 
     // 생성자
+    // 피드백 수정
     public Dog(String name) {
-        super(name, true);
+        super(name);
         countDog++;
     }
 
     // 메소드
     public Dog() {
         this("Anoymous");
-    }
-
-    @Override
-    public String getType() {
-        return "강아지";
     }
 
     @Override

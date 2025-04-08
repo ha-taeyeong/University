@@ -20,6 +20,7 @@ public class SalariedEmployee extends Person {
     }
 
     // 메소드
+    @Override // 피드백 수정
     public int computeSalary() {
         return salary * 12; // 연봉
     }

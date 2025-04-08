@@ -7,7 +7,7 @@ public class Test {
         SalariedEmployee emp2 = new SalariedEmployee("hallym", "6534", 85);
 
         HourEmployee emp3 = new HourEmployee("info", "2345", 60, 6);
-        HourEmployee emp4 = new HourEmployee("computer", "8564", 55, 8);
+        HourEmployee emp4 = new HourEmployee("computer", "8546", 55, 8);
 
         System.out.println("------------------- 직원 목록 출력 -------------------");
         System.out.println(emp1);

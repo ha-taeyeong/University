@@ -1,17 +1,18 @@
 package week5.practice7;
 
 public class Main {
+    // 피드백 수정
     public static void main(String[] args) {
-        Payment creditCardPayment = new CreditCardPayment(); // 신용카드 결제
-        Payment paypalPayment = new PaypalPayment();         // 페이팔 결제
-        Payment googlePayPayment = new GooglePayPayment();   // 구글 결제
+        // 객체 배열
+        // CreditCardPayment:신용카드 결제, GooglePayPayment:구글결제, PaypalPayment : 페이팔 결제
+        Payment[] payments = {new CreditCardPayment(), new PaypalPayment(), new GooglePayPayment()};
 
-        PaymentProcessor paymentProcessor1 = new PaymentProcessor(creditCardPayment);
-        PaymentProcessor paymentProcessor2 = new PaymentProcessor(paypalPayment);
-        PaymentProcessor paymentProcessor3 = new PaymentProcessor(googlePayPayment);
+        // 가격 배열
+        int[] amount = {10000, 5000, 2000};
 
-        paymentProcessor1.process(10000);
-        paymentProcessor2.process(5000);
-        paymentProcessor3.process(2000);
+        // 배열 삽입
+        for(int i = 0; i < payments.length; i++) {
+            payments[i].processPayment(amount[i]);
+        }
     }
 }

@@ -28,6 +28,11 @@ class Person {
         this.employeeId = employeeId;
     }
 
+    // 피드백 수정
+    public int computeSalary() {
+        return 0; // 메소드 타입이 void가 아닌 경우 반환 값이 존재해야한다.
+    }
+
     // toString()
     @Override
     public String toString() {
