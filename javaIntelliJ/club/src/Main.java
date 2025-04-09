@@ -1,24 +1,26 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        float[] arr = new float[1000];
+        int n = sc.nextInt();
         int count = 0;
 
-        while (true) {
-            float temp = sc.nextFloat();
-            if (temp == 999) {
-                break;
+        for(int x = 1; x * x <= n; x++) {
+            if (n % x != 0) continue;
+
+            int y = n / x;
+
+            if((x + y) % 2 != 0) continue;
+            if((y - x) % 2 != 0) continue;
+
+            int A = (x + y) / 2;;
+            int B = (y - x) / 2;
+
+            if(A <= 500 && B >= 1) {
+                count++;
             }
-            arr[count++] = temp;
         }
-
-        for (int i = 1; i < count; i++) {
-            System.out.printf("%.2f\n", arr[i] - arr[i - 1]);
-        }
-
-        sc.close();
+        System.out.println(count);
     }
 }
