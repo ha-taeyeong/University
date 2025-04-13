@@ -23,7 +23,7 @@ class Student extends Person implements IJob, IPin {
 
     @Override
     public int getPin() {
-        return (int)(Math.random() * 90) + 10;
+        return (int)(Math.random() * 100);
     }
 
     @Override
