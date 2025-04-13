@@ -8,12 +8,15 @@ public class Main {
         rc = new TV();
         rc.turnOn();
         rc.setVolume(10);
+        System.out.println(rc.toString());
         rc.setMute(true);
 
         rc = new SmartPhone();
         rc.turnOn();
         rc.setVolume(50);
+        System.out.println(rc.toString());
 
-        RemoteControl.changeBattery();
+        RemoteControl.changeBattery();  // static 메서드 호출
     }
 }
+

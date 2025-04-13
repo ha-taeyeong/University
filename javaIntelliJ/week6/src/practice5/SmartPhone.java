@@ -22,11 +22,12 @@ class SmartPhone implements RemoteControl {
     @Override
     public void setVolume(int volume) {
         this.volume = volume;
-        System.out.println("----SmartPhone 볼륨을 " + volume + "으로 합니다 ----");
+        System.out.println("---- " + name + " 볼륨을 " + volume + "으로 합니다 ----");
     }
     @Override
     public void setMute(boolean mute) { //디폴트 메소드
         if(mute) {
+            System.out.println("---- " + name + " 볼륨을 무음으로 합니다 ----");
             System.out.println("무음 처리합니다.");
         } else {
             System.out.println("무음 해제합니다.");
@@ -35,7 +36,7 @@ class SmartPhone implements RemoteControl {
 
     @Override
     public String toString() {
-        return "현재 " + name + "SmartPhone 볼륨: " + volume;
+        return "현재 " + name + " 볼륨: " + volume;
     }
 
 }
