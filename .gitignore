@@ -1,0 +1,38 @@
+# ===== Eclipse =====
+.metadata/
+*.classpath
+*.project
+*.settings/
+bin/
+tmp/
+target/
+
+# ===== IntelliJ / PyCharm (JetBrains) =====
+.idea/
+*.iml
+*.iws
+out/
+
+# ===== Python 관련 =====
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+*.venv
+env/
+venv/
+
+# ===== macOS =====
+.DS_Store
+
+# ===== Windows =====
+Thumbs.db
+desktop.ini
+
+# ===== 일반적으로 무시되는 파일 =====
+*.log
+*.tmp
+*.swp
+*.bak
+*.~*
