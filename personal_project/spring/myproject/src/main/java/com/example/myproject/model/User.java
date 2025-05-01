@@ -1,54 +1,22 @@
 package com.example.myproject.model;
 
+import java.util.Date;
+import lombok.Data;
+
+@Data
 public class User {
-    private int id;
-    private String name;
-    private String email;
+	private int userNo;
+    private String userId;
+    private String userPw;
+    private String userName;
+    private String userBirth;
+    private String userGender;
+    private Date regDt;
+    private String regId;
+    private String regIp;
+    private Date modDt;
+    private String modId;
+    private String modIp;
+    private String delYn;
 
-    // 기본 생성자
-    public User() {
-    }
-
-    // 파라미터가 있는 생성자
-    public User(int id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-    
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-
-
-    // Getter for id
-    public int getId() {
-        return id;
-    }
-
-    // Setter for id
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    // Getter for name
-    public String getName() {
-        return name;
-    }
-
-    // Setter for name
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    // Getter for email
-    public String getEmail() {
-        return email;
-    }
-
-    // Setter for email
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

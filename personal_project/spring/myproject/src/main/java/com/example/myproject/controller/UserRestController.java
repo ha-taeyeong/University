@@ -17,37 +17,32 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    // Create User
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody User user) {
         int result = userService.createUser(user);
         return result > 0 ? ResponseEntity.ok("User created successfully") : ResponseEntity.status(400).body("Error creating user");
     }
 
-    // Get all Users
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    // Get User by ID
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable int id) {
-        return userService.getUser(id);
+    @GetMapping("/{userNo}")
+    public User getUser(@PathVariable int userNo) {
+        return userService.getUser(userNo);
     }
 
-    // Update User
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable int id, @RequestBody User user) {
-        user.setId(id);
+    @PutMapping("/{userNo}")
+    public ResponseEntity<String> updateUser(@PathVariable int userNo, @RequestBody User user) {
+        user.setUserNo(userNo);
         int result = userService.updateUser(user);
         return result > 0 ? ResponseEntity.ok("User updated successfully") : ResponseEntity.status(400).body("Error updating user");
     }
 
-    // Delete User
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable int id) {
-        int result = userService.deleteUser(id);
+    @DeleteMapping("/{userNo}")
+    public ResponseEntity<String> deleteUser(@PathVariable int userNo) {
+        int result = userService.deleteUser(userNo);
         return result > 0 ? ResponseEntity.ok("User deleted successfully") : ResponseEntity.status(400).body("Error deleting user");
     }
 }

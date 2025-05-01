@@ -15,43 +15,41 @@ public class UserDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // Insert
     public int insertUser(User user) {
-        String sql = "INSERT INTO users (name, email) VALUES (?, ?)";
-        return jdbcTemplate.update(sql, user.getName(), user.getEmail());
+        String sql = "INSERT INTO user (user_id, user_pw, user_name, user_email) VALUES (?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, user.getUserId(), user.getUserPw(), user.getUserName());
     }
 
-    // Update
     public int updateUser(User user) {
-        String sql = "UPDATE users SET name = ?, email = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, user.getName(), user.getEmail(), user.getId());
+        String sql = "UPDATE user SET user_id = ?, user_pw = ?, user_name = ?, user_email = ? WHERE user_no = ?";
+        return jdbcTemplate.update(sql, user.getUserId(), user.getUserPw(), user.getUserName(), user.getUserNo());
     }
 
-    // Delete
-    public int deleteUser(int id) {
-        String sql = "DELETE FROM users WHERE id = ?";
-        return jdbcTemplate.update(sql, id);
+    public int deleteUser(int userNo) {
+        String sql = "DELETE FROM user WHERE user_no = ?";
+        return jdbcTemplate.update(sql, userNo);
     }
 
-    // Select
-    public User selectUser(int id) {
-        String sql = "SELECT * FROM users WHERE id = ?";
+    public User selectUser(int userNo) {
+        String sql = "SELECT * FROM user WHERE user_no = ?";
         return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
             User user = new User();
-            user.setId(rs.getInt("id"));
-            user.setName(rs.getString("name"));
-            user.setEmail(rs.getString("email"));
+            user.setUserNo(rs.getInt("user_no"));
+            user.setUserId(rs.getString("user_id"));
+            user.setUserPw(rs.getString("user_pw"));
+            user.setUserName(rs.getString("user_name"));
             return user;
-        }, id);
+        }, userNo);
     }
 
     public List<User> getAllUsers() {
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM user";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             User user = new User();
-            user.setId(rs.getInt("id"));
-            user.setName(rs.getString("name"));
-            user.setEmail(rs.getString("email"));
+            user.setUserNo(rs.getInt("user_no"));
+            user.setUserId(rs.getString("user_id"));
+            user.setUserPw(rs.getString("user_pw"));
+            user.setUserName(rs.getString("user_name"));
             return user;
         });
     }

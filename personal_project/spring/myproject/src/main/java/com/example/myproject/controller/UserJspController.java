@@ -43,7 +43,7 @@ public class UserJspController {
     // Update user
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable int id, User user) {
-        user.setId(id);
+        user.setUserNo(id);
         userService.updateUser(user);
         return "redirect:/users/select";
     }

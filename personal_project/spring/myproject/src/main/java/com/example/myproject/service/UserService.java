@@ -19,19 +19,19 @@ public class UserService {
         return userDao.insertUser(user);
     }
 
+    public List<User> getAllUsers() {
+        return userDao.getAllUsers();
+    }
+
+    public User getUser(int userNo) {
+        return userDao.selectUser(userNo);
+    }
+
     public int updateUser(User user) {
         return userDao.updateUser(user);
     }
 
-    public int deleteUser(int id) {
-        return userDao.deleteUser(id);
-    }
-
-    public User getUser(int id) {
-        return userDao.selectUser(id);
-    }
-
-    public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+    public int deleteUser(int userNo) {
+        return userDao.deleteUser(userNo);
     }
 }
