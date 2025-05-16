@@ -4,9 +4,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void checkId(String id) throws NotUseId{
+        char ch = id.charAt(0);
         if (id.length() < 8 ||
-            !((id.charAt(0) >= 'a' && id.charAt(0) <= 'z')||
-              (id.charAt(0) >= 'A' && id.charAt(0) <= 'Z'))) {
+            !((ch >= 'a' && ch <= 'z')||
+              (ch >= 'A' && ch <= 'Z'))) {
             throw new NotUseId(id + "는 사용할 수 없는 아이디 입니다.");
         }
     }
