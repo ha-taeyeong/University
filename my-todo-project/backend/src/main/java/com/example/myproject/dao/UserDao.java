@@ -1,6 +1,6 @@
 package com.example.myproject.dao;
 
-import com.example.myproject.model.User;
+import com.example.myproject.dto.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -34,27 +34,6 @@ public class UserDao {
             user.setDelYn(rs.getString("del_yn"));
             return user;
         });
-    }
-
-    public User selectUser(int userNo) {
-        String sql = "SELECT * FROM user WHERE user_no = ?";
-        return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
-            User user = new User();
-            user.setUserNo(rs.getInt("user_no"));
-            user.setUserId(rs.getString("user_id"));
-            user.setUserPw(rs.getString("user_pw"));
-            user.setUserName(rs.getString("user_name"));
-            user.setUserBirth(rs.getString("user_birth"));
-            user.setUserGender(rs.getString("user_gender"));
-            user.setRegDt(rs.getDate("reg_dt"));
-            user.setRegId(rs.getString("reg_id"));
-            user.setRegIp(rs.getString("reg_ip"));
-            user.setModDt(rs.getDate("mod_dt"));
-            user.setModId(rs.getString("mod_id"));
-            user.setModIp(rs.getString("mod_ip"));
-            user.setDelYn(rs.getString("del_yn"));
-            return user;
-        }, userNo);
     }
 
     public int insertUser(User user) {
@@ -104,4 +83,27 @@ public class UserDao {
         String sql = "DELETE FROM user WHERE user_no = ?";
         return jdbcTemplate.update(sql, userNo);
     }
+
+    public User selectUserByUserId(String userId) {
+        String sql = "SELECT * FROM user WHERE user_id = ?";
+        List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
+            User user = new User();
+            user.setUserNo(rs.getInt("user_no"));
+            user.setUserId(rs.getString("user_id"));
+            user.setUserPw(rs.getString("user_pw"));
+            user.setUserName(rs.getString("user_name"));
+            user.setUserBirth(rs.getString("user_birth"));
+            user.setUserGender(rs.getString("user_gender"));
+            user.setRegDt(rs.getDate("reg_dt"));
+            user.setRegId(rs.getString("reg_id"));
+            user.setRegIp(rs.getString("reg_ip"));
+            user.setModDt(rs.getDate("mod_dt"));
+            user.setModId(rs.getString("mod_id"));
+            user.setModIp(rs.getString("mod_ip"));
+            user.setDelYn(rs.getString("del_yn"));
+            return user;
+        }, userId);
+        return users.isEmpty() ? null : users.get(0); // 결과가 없으면 null 반환
+    }
+
 }

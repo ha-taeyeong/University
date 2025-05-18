@@ -1,4 +1,4 @@
-package com.example.myproject.model;
+package com.example.myproject.dto;
 
 import java.util.Date;
 import lombok.Data;
@@ -18,5 +18,4 @@ public class User {
     private String modId;
     private String modIp;
     private String delYn;
-
 }

@@ -1,8 +1,9 @@
 package com.example.myproject.controller;
 
-import com.example.myproject.model.User;
+import com.example.myproject.dto.User;
 import com.example.myproject.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +22,6 @@ public class UserRestController {
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
-    }
-
-    @GetMapping("/{userNo}")
-    public User getUser(@PathVariable int userNo) {
-        return userService.getUser(userNo);
     }
 
     @PostMapping
@@ -69,6 +65,13 @@ public class UserRestController {
         return result > 0 ?
                 ResponseEntity.ok("User updated successfully")
                 : ResponseEntity.status(400).body("Error updating user");
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<User> getMyInfo(Authentication authentication) {
+        String userId = (String) authentication.getPrincipal();
+        User user = userService.findByUserId(userId);
+        return ResponseEntity.ok(user);
     }
 
 }
