@@ -3,6 +3,7 @@
     <nav>
       <router-link to="/signup">회원가입</router-link>
       <router-link to="/login">로그인</router-link>
+      <router-link to="/me">마이페이지</router-link>
     </nav>
     <router-view></router-view>
   </div>

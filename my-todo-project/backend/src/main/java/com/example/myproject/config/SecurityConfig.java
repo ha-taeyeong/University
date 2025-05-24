@@ -24,20 +24,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/auth/login",
-                             "/api/auth/signup",
-                             "/api/user",
-                             "/api/user/me"
-                ).permitAll() // 로그인, 회원가입은 인증 없이 허용
-                .anyRequest().authenticated() // 그 외는 인증 필요
-                .and()
-                .sessionManagement().disable() // JWT는 Stateless
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/api/auth/login",
+                                "/api/auth/signup",
+                                "/api/user",
+                                "/api/user/me"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(sess -> sess.disable()) // JWT는 Stateless
                 .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
