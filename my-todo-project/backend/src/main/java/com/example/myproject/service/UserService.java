@@ -26,10 +26,6 @@ public class UserService {
         return userDao.getAllUsers();
     }
 
-//    public User getUser(int userNo) {
-//        return userDao.selectUser(userNo);
-//    }
-
     public int createUser(User user, String regId, String regIp, String delYn) {
         user.setUserPw(passwordEncoder.encode(user.getUserPw())); // 암호화 적용
         user.setRegDt(new Date());

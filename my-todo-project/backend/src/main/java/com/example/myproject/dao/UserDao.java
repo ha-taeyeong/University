@@ -16,7 +16,7 @@ public class UserDao {
     }
 
     public List<User> getAllUsers() {
-        String sql = "SELECT * FROM user";
+        String sql = "SELECT * FROM todo_user";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             User user = new User();
             user.setUserNo(rs.getInt("user_no"));
@@ -37,7 +37,7 @@ public class UserDao {
     }
 
     public int insertUser(User user) {
-        String sql = "INSERT INTO user (user_id, user_pw, user_name, user_birth, user_gender, reg_dt, reg_id, reg_ip, del_yn) " +
+        String sql = "INSERT INTO todo_user (user_id, user_pw, user_name, user_birth, user_gender, reg_dt, reg_id, reg_ip, del_yn) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql,
             user.getUserId(),
@@ -53,7 +53,7 @@ public class UserDao {
     }
 
     public int updateUser(User user) {
-        String sql = "UPDATE user SET user_pw = ?, user_name = ?, user_birth = ?, user_gender = ?, mod_dt = ?, mod_id = ?, mod_ip = ? " +
+        String sql = "UPDATE todo_user SET user_pw = ?, user_name = ?, user_birth = ?, user_gender = ?, mod_dt = ?, mod_id = ?, mod_ip = ? " +
                      "WHERE user_no = ?";
         return jdbcTemplate.update(sql,
             user.getUserPw(),
@@ -68,7 +68,7 @@ public class UserDao {
     }
 
     public int deleteUser(User user) {
-        String sql = "UPDATE user SET mod_dt = ?, mod_id = ?, mod_ip = ?, del_yn = ?" +
+        String sql = "UPDATE todo_user SET mod_dt = ?, mod_id = ?, mod_ip = ?, del_yn = ?" +
                      "WHERE user_no = ?";
         return jdbcTemplate.update(sql,
             user.getModDt(),
@@ -80,12 +80,12 @@ public class UserDao {
     }
 
     public int deleteUserPermanently(int userNo) {
-        String sql = "DELETE FROM user WHERE user_no = ?";
+        String sql = "DELETE FROM todo_user WHERE user_no = ?";
         return jdbcTemplate.update(sql, userNo);
     }
 
     public User selectUserByUserId(String userId) {
-        String sql = "SELECT * FROM user WHERE user_id = ?";
+        String sql = "SELECT * FROM todo_user WHERE user_id = ?";
         List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
             User user = new User();
             user.setUserNo(rs.getInt("user_no"));
