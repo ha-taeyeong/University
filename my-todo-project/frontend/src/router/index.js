@@ -2,11 +2,15 @@ import { createRouter, createWebHistory } from 'vue-router'
 import SignupPage from '@/views/SignupPage.vue'
 import LoginPage from '@/views/LoginPage.vue'
 import MyPage from '@/views/MyPage.vue'
+import ListView from '@/views/ListView.vue';
+import ListDetail from '@/views/ListDetail.vue';
 
 const routes = [
     { path: '/signup', component: SignupPage },
     { path: '/login', component: LoginPage },
-    { path: '/me', component: MyPage, meta: { requiresAuth: true } }
+    { path: '/me', component: MyPage, meta: { requiresAuth: true } },
+    { path: '/', component: ListView },
+    { path: '/list/:listNo', component: ListDetail }
 ]
 
 const router = createRouter({

@@ -2,10 +2,12 @@ package com.example.myproject.service;
 
 import com.example.myproject.dao.ListDao;
 import com.example.myproject.dto.ListDto;
+import com.example.myproject.dto.User;
 import com.example.myproject.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,4 +24,37 @@ public class ListService {
     }
 
     public List<ListDto> getAllList() { return this.listDao.getAllList(); }
+
+    public int createList(ListDto list, String completedYn, String regId, String regIp, String delYn) {
+        list.setCompletedYn(completedYn);
+        list.setRegDt(new Date());
+        list.setRegId(regId);
+        list.setRegIp(regIp);
+        list.setDelYn(delYn);
+        return listDao.insertList(list);
+    }
+
+    public int updateList(ListDto list, String modId, String modIp) {
+        list.setModDt(new Date());
+        list.setModId(modId);
+        list.setModIp(modIp);
+        return listDao.updateList(list);
+    }
+
+    public int deleteList(ListDto list, String modId, String modIp, String delYn) {
+        list.setModDt(new Date());
+        list.setModId(modId);
+        list.setModIp(modIp);
+        list.setDelYn(delYn);
+        return listDao.deleteList(list);
+    }
+
+    public int deleteListPermanently(int listNo) {
+        return listDao.deleteListPermanently(listNo);
+    }
+
+    public ListDto findByListNo(int listNo) {
+        return listDao.selectbyListNo(listNo);
+    }
+
 }

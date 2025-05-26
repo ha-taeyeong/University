@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store' // store import 추가
 import axios from 'axios'
 
 axios.interceptors.request.use(config => {
@@ -11,4 +12,7 @@ axios.interceptors.request.use(config => {
     return config
 })
 
-createApp(App).use(router).mount('#app')
+createApp(App)
+    .use(router)
+    .use(store) // store 등록!
+    .mount('#app')

@@ -56,7 +56,7 @@ public class UserRestController {
         int result = userService.deleteUser(user, modId, modIp, delYn);
         return result > 0 ?
                 ResponseEntity.ok("User updated successfully")
-                : ResponseEntity.status(400).body("Error updating user");
+                : ResponseEntity.status(400).body("Error deleting user");
     }
 
     @DeleteMapping("/permanent/{userNo}")
@@ -64,7 +64,7 @@ public class UserRestController {
         int result = userService.deleteUserPermanently(userNo);
         return result > 0 ?
                 ResponseEntity.ok("User updated successfully")
-                : ResponseEntity.status(400).body("Error updating user");
+                : ResponseEntity.status(400).body("Error permanent deleting user");
     }
 
     @GetMapping("/me")

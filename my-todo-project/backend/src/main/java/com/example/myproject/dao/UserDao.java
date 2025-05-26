@@ -53,10 +53,9 @@ public class UserDao {
     }
 
     public int updateUser(User user) {
-        String sql = "UPDATE todo_user SET user_pw = ?, user_name = ?, user_birth = ?, user_gender = ?, mod_dt = ?, mod_id = ?, mod_ip = ? " +
+        String sql = "UPDATE todo_user SET user_name = ?, user_birth = ?, user_gender = ?, mod_dt = ?, mod_id = ?, mod_ip = ? " +
                      "WHERE user_no = ?";
         return jdbcTemplate.update(sql,
-            user.getUserPw(),
             user.getUserName(),
             user.getUserBirth(),
             user.getUserGender(),
