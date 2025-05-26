@@ -15,21 +15,26 @@ export default {
       form: this.editItem ? { ...this.editItem } : { listName: '' }
     };
   },
+  watch: {
+    editItem: {
+      handler(newVal) {
+        this.form = newVal ? { ...newVal } : { listName: '' };
+      },
+      immediate: true
+    }
+  },
   methods: {
     save() {
-      console.log(this.form.listName);
       if (!this.form.listName) {
         alert('리스트명을 입력하세요.');
         return;
       }
-
       // 저장할 데이터 준비
       const payload = {
         ...this.form,
         userNo: this.$store.state.userNo // userNo가 필요하다면
       };
-
-      console.log(this.editItem)
+      console.log(payload)
       // 수정 모드인지, 신규 생성인지 분기
       if (this.editItem) {
         // 수정(put)

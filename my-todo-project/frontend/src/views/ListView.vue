@@ -29,7 +29,6 @@
 <script>
 import axios from 'axios';
 import ListForm from './ListForm.vue';
-import { useRouter } from 'vue-router';
 
 export default {
   components: { ListForm },
@@ -37,7 +36,7 @@ export default {
     return {
       lists: [],
       showForm: false,
-      editItem: null,
+      editItem: null
     };
   },
   mounted() {

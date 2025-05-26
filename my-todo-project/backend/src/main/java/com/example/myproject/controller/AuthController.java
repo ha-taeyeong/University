@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collections;
+import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -27,8 +27,13 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
-            String token = userService.login(request.getUserId(), request.getUserPw());
-            return ResponseEntity.ok(Collections.singletonMap("token", token));
+            // 로그인 성공 시 User 객체를 반환하도록 UserService 수정
+            User user = userService.login(request.getUserId(), request.getUserPw());
+            String token = jwtUtil.generateToken(user.getUserId());
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("userNo", user.getUserNo());
+            return ResponseEntity.ok(response);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }

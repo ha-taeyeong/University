@@ -54,7 +54,7 @@ public class UserService {
         return userDao.deleteUserPermanently(userNo);
     }
 
-    public String login(String userId, String userPw) {
+    public User login(String userId, String userPw) {
         User user = userDao.selectUserByUserId(userId);
         if (user == null) {
             throw new IllegalArgumentException("존재하지 않는 아이디입니다.");
@@ -62,7 +62,7 @@ public class UserService {
         if (!passwordEncoder.matches(userPw, user.getUserPw())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-        return jwtUtil.generateToken(userId);
+        return user; // User 객체 반환
     }
 
     public User findByUserId(String userId) {

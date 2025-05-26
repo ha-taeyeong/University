@@ -14,7 +14,9 @@
 import axios from 'axios'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
+const store = useStore()
 const credentials = reactive({
   userId: '',
   userPw: ''
@@ -26,6 +28,13 @@ const login = async () => {
   try {
     const response = await axios.post('/api/auth/login', credentials)
     localStorage.setItem('token', response.data.token)
+
+    // userNo 저장
+    if (response.data.userNo) {
+      localStorage.setItem('userNo', response.data.userNo)
+      store.commit('setUserNo', response.data.userNo)
+    }
+
     // JWT 토큰 저장 등 추가 로직
     message.value = '로그인 성공!'
     router.push('/me') // 로그인 성공 후 마이페이지로 이동!
