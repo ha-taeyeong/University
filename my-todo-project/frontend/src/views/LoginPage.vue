@@ -35,9 +35,11 @@ const login = async () => {
       store.commit('setUserNo', response.data.userNo)
     }
 
+    store.commit('setLoggedIn', true)
+
     // JWT 토큰 저장 등 추가 로직
     message.value = '로그인 성공!'
-    router.push('/me') // 로그인 성공 후 마이페이지로 이동!
+    router.push('/list') // <-- 여기만 /list로 변경!
   } catch (error) {
     message.value = '로그인 실패: ' + (error.response?.data?.message || error.message)
   }

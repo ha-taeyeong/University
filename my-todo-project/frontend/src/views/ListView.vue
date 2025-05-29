@@ -12,13 +12,36 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="list in lists" :key="list.listNo" @click="goToDetail(list.listNo)" style="cursor:pointer;">
-        <td>
-          <input type="checkbox" :checked="list.completedYn === 'Y'" @change.stop="toggleComplete(list)" />
+      <tr v-for="(list, idx) in lists" :key="list.listNo">
+        <!-- 완료 여부: 인라인 수정 모드에서는 select, 아니면 텍스트 -->
+        <td v-if="editIndex !== idx">
+          <span>{{ list.completedYn === 'Y' ? '완료' : '미완료' }}</span>
         </td>
-        <td>{{ list.listName }}</td>
-        <td><button @click.stop="openEditForm(list)">수정</button></td>
-        <td><button @click.stop="deleteList(list.listNo)">삭제</button></td>
+        <td v-else>
+          <select v-model="editCompletedYn">
+            <option value="Y">완료</option>
+            <option value="N">미완료</option>
+          </select>
+        </td>
+        <!-- 리스트명: 인라인 수정 모드에서는 input, 아니면 텍스트 -->
+        <td v-if="editIndex !== idx" @click="goToDetail(list.listNo)" style="cursor:pointer;">
+          {{ list.listName }}
+        </td>
+        <td v-else>
+          <input v-model="editName" @keyup.enter="saveEdit(idx, list)" />
+        </td>
+        <!-- 수정/저장/취소 버튼 -->
+        <td>
+          <button v-if="editIndex !== idx" @click="startEdit(idx, list)">수정</button>
+          <span v-else>
+              <button @click="saveEdit(idx, list)">저장</button>
+              <button @click="cancelEdit">취소</button>
+            </span>
+        </td>
+        <!-- 삭제 버튼 -->
+        <td>
+          <button type="button" @click="deleteList(list.listNo)">삭제</button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -36,7 +59,10 @@ export default {
     return {
       lists: [],
       showForm: false,
-      editItem: null
+      editItem: null,
+      editIndex: null,        // 수정 중인 행의 인덱스
+      editName: '',           // 수정 중인 리스트명
+      editCompletedYn: 'N',   // 수정 중인 완료여부
     };
   },
   mounted() {
@@ -45,28 +71,57 @@ export default {
   methods: {
     fetchLists() {
       axios.get('/api/list').then(res => {
-        this.lists = res.data;
+        this.lists = res.data.filter(item => item.delYn === "N");
       });
     },
     openAddForm() {
       this.editItem = null;
       this.showForm = true;
     },
-    openEditForm(list) {
-      this.editItem = { ...list };
-      this.showForm = true;
-    },
     closeForm() {
       this.showForm = false;
       this.editItem = null;
     },
+    // 인라인 수정 시작
+    startEdit(idx, list) {
+      this.editIndex = idx;
+      this.editName = list.listName;
+      this.editCompletedYn = list.completedYn;
+    },
+    // 인라인 수정 저장
+    async saveEdit(idx, list) {
+      if (!this.editName.trim()) {
+        alert('리스트명을 입력하세요.');
+        return;
+      }
+      const updated = {
+        ...list,
+        listName: this.editName,
+        completedYn: this.editCompletedYn
+      };
+      await axios.put(`/api/list/${list.listNo}`, updated);
+      this.editIndex = null;
+      this.editName = '';
+      this.editCompletedYn = 'N';
+      this.fetchLists();
+    },
+    // 인라인 수정 취소
+    cancelEdit() {
+      this.editIndex = null;
+      this.editName = '';
+      this.editCompletedYn = 'N';
+    },
+    // 삭제
     deleteList(listNo) {
-      axios.delete(`/api/list/${listNo}`).then(() => this.fetchLists());
+      if (!confirm('정말 삭제하시겠습니까?')) return;
+      axios.delete(`/api/list/${listNo}`)
+          .then(() => this.fetchLists())
+          .catch(error => {
+            alert('삭제 중 오류가 발생했습니다.');
+            console.error('삭제 실패:', error);
+          });
     },
-    toggleComplete(list) {
-      const updated = { ...list, completedYn: list.completedYn === 'Y' ? 'N' : 'Y' };
-      axios.put(`/api/list/${list.listNo}`, updated).then(() => this.fetchLists());
-    },
+    // 상세 화면 이동
     goToDetail(listNo) {
       this.$router.push(`/list/${listNo}`);
     }
