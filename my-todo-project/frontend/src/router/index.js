@@ -4,15 +4,19 @@ import LoginPage from '@/views/LoginPage.vue'
 import MyPage from '@/views/MyPage.vue'
 import ListView from '@/views/ListView.vue';
 import ListDetail from '@/views/ListDetail.vue';
+import NotFound from '@/views/NotFound.vue';
 import store from '@/store';
+import Contact from '@/views/Contact.vue'
 
 const routes = [
     { path: '/', redirect: '/login' },
     { path: '/signup', component: SignupPage },
     { path: '/login', component: LoginPage },
     { path: '/me', component: MyPage, meta: { requiresAuth: true } },
-    { path: '/list', component: ListView, meta: { requiresAuth: true } }, // 리스트 전체
-    { path: '/list/:listNo', component: ListDetail, meta: { requiresAuth: true } }
+    { path: '/list', component: ListView, meta: { requiresAuth: true } },
+    { path: '/list/:listNo', component: ListDetail, meta: { requiresAuth: true } },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
+    { path: '/contact', name: 'Contact', component: Contact }
 ];
 
 const router = createRouter({

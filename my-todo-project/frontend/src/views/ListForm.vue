@@ -1,63 +1,81 @@
 <template>
-  <form @submit.prevent="save">
-    <input v-model="form.listName" name="listName" placeholder="리스트명" />
-    <button type="submit">저장</button>
-    <button type="button" @click="$emit('close')">취소</button>
+  <form class="bg-white p-6 rounded-lg shadow w-full max-w-sm mx-auto" @submit.prevent="save">
+    <input v-model="form.listName" name="listName" placeholder="리스트명"
+           class="border rounded px-3 py-2 w-full mb-3" />
+    <div v-if="errorMsg" class="flex items-center p-3 mb-3 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+      <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zM8.257 3.099c..."/>
+      </svg>
+      <span class="font-medium">{{ errorMsg }}</span>
+    </div>
+    <button type="submit"
+            :disabled="loading || !form.listName.trim()"
+            class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition
+         disabled:bg-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed">
+      저장
+    </button>
+    <button type="button"
+            class="ml-2 px-4 py-2 border rounded hover:bg-gray-200 transition"
+            @click="$emit('close')">취소</button>
+    <AlertSuccess :show="showAlert" message="저장되었습니다." @update:show="showAlert = $event" />
   </form>
 </template>
 
-<script>
-import axios from 'axios';
-export default {
-  props: { editItem: Object },
-  data() {
-    return {
-      form: this.editItem ? { ...this.editItem } : { listName: '' }
-    };
-  },
-  watch: {
-    editItem: {
-      handler(newVal) {
-        this.form = newVal ? { ...newVal } : { listName: '' };
-      },
-      immediate: true
-    }
-  },
-  methods: {
-    save() {
-      if (!this.form.listName) {
-        alert('리스트명을 입력하세요.');
-        return;
-      }
-      // 저장할 데이터 준비
-      const payload = {
-        ...this.form,
-        userNo: this.$store.state.userNo // userNo가 필요하다면
-      };
-      console.log(payload)
-      // 수정 모드인지, 신규 생성인지 분기
-      if (this.editItem) {
-        // 수정(put)
-        axios.put(`/api/list/${this.form.listNo}`, payload)
-            .then(() => {
-              this.$emit('saved');
-              this.$emit('close');
-            })
-            .catch(err => {
-              alert('리스트 수정에 실패했습니다.');
-            });
-      } else {
-        // 신규 생성(post)
-        axios.post('/api/list', payload)
-            .then(() => {
-              this.$emit('saved');
-              this.$emit('close');
-            })
-            .catch(err => {
-              alert('리스트 저장에 실패했습니다.');
-            });
-      }
-    }
+<script setup>
+import { ref, watch } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
+import AlertSuccess from '@/components/AlertSuccess.vue'
+
+const props = defineProps({ editItem: Object })
+const emit = defineEmits(['saved', 'close'])
+const store = useStore()
+const router = useRouter()
+const form = ref(props.editItem ? { ...props.editItem } : { listName: '' })
+const errorMsg = ref('')
+const loading = ref(false)
+const showAlert = ref(false)
+
+watch(() => props.editItem, (newVal) => {
+  form.value = newVal ? { ...newVal } : { listName: '' }
+}, { immediate: true })
+
+async function save() {
+  if (!form.value.listName.trim()) {
+    errorMsg.value = '리스트명을 입력하세요.'
+    return
   }
-};
+  errorMsg.value = ''
+  loading.value = true
+  const payload = {
+    ...form.value,
+    userNo: store.state.userNo
+  }
+  try {
+    if (props.editItem) {
+      await axios.put(`/api/list/${form.value.listNo}`, payload)
+    } else {
+      await axios.post('/api/list', payload)
+    }
+    showAlert.value = true
+    setTimeout(async () => {
+      emit('saved')
+      emit('close')
+      if (!more) {
+        router.push('/list')
+      } else {
+        form.value = { listName: '' }
+      }
+    }, 2000) // 알림이 2초간 뜬 뒤 다음 로직 실행
+  } catch (err) {
+    errorMsg.value = props.editItem
+        ? '리스트 수정에 실패했습니다.'
+        : '리스트 저장에 실패했습니다.'
+  } finally {
+    loading.value = false
+  }
+}
 </script>
+
+
