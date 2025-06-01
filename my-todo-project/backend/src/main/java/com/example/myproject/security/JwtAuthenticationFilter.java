@@ -19,6 +19,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        return path.startsWith("/assets/")
+                || path.startsWith("/js/")
+                || path.startsWith("/css/")
+                || path.startsWith("/images/")
+                || path.equals("/")
+                || path.equals("/index.html")
+                || path.equals("/favicon.ico")
+                || path.startsWith("/api/auth/")  // 허용된 API 경로 추가
+                || path.startsWith("/api/user/signup")
+                || path.startsWith("/api/user/login");
+    }
+
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String header = request.getHeader("Authorization");
@@ -26,7 +42,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = header.substring(7);
             if (jwtUtil.validateToken(token)) {
                 String userId = jwtUtil.extractUserId(token);
-                // 간단 예시: 권한 없이 인증만 처리 (실무에서는 UserDetailsService 활용 권장)
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userId, null, Collections.emptyList());
                 SecurityContextHolder.getContext().setAuthentication(authentication);

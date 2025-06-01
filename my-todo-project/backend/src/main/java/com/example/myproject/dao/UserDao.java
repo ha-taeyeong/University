@@ -68,7 +68,7 @@ public class UserDao {
 
     public int deleteUser(User user) {
         String sql = "UPDATE todo_user SET mod_dt = ?, mod_id = ?, mod_ip = ?, del_yn = ?" +
-                     "WHERE user_no = ?";
+                "WHERE user_no = ?";
         return jdbcTemplate.update(sql,
             user.getModDt(),
             user.getModId(),
