@@ -29,7 +29,7 @@ public class AuthController {
         try {
             // 로그인 성공 시 User 객체를 반환하도록 UserService 수정
             User user = userService.login(request.getUserId(), request.getUserPw());
-            String token = jwtUtil.generateToken(user.getUserId());
+            String token = jwtUtil.generateToken(user.getUserNo(), user.getUserId());
             Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("userNo", user.getUserNo());

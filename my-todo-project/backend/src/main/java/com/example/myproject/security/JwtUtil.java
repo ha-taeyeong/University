@@ -13,8 +13,9 @@ public class JwtUtil {
     private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long EXPIRATION = 1000 * 60 * 60; // 1시간
 
-    public String generateToken(String userId) {
+    public String generateToken(int userNo, String userId) {
         return Jwts.builder()
+                .claim("userNo", userNo)
                 .setSubject(userId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
@@ -35,4 +36,15 @@ public class JwtUtil {
             return false;
         }
     }
+
+    // userNo 추출
+    public Long extractUserNo(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("userNo", Long.class);
+    }
+
 }

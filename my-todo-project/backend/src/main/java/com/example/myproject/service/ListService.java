@@ -23,7 +23,9 @@ public class ListService {
         this.jwtUtil = jwtUtil;
     }
 
-    public List<ListDto> getAllList() { return this.listDao.getAllList(); }
+    public List<ListDto> getListByUserNo(Long userNo) {
+        return listDao.findByUserNo(userNo); // DAO 메서드 구현 필요
+    }
 
     public int createList(ListDto list, String completedYn, String regId, String regIp, String delYn) {
         list.setCompletedYn(completedYn);

@@ -12,14 +12,14 @@ public class ListDao {
 
     public ListDao(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
 
-    public List<ListDto> getAllList() {
-        String sql = "SELECT * FROM todo_list";
+    public List<ListDto> findByUserNo(Long userNo) {
+        String sql = "SELECT * FROM todo_list WHERE user_no = ?";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             ListDto list = new ListDto();
-            list.setListNo(rs.getInt(("list_no")));
-            list.setUserNo(rs.getInt(("user_no")));
-            list.setListName(rs.getString(("list_name")));
-            list.setCompletedYn(rs.getString(("completed_yn")));
+            list.setListNo(rs.getInt("list_no"));
+            list.setUserNo(rs.getInt("user_no"));
+            list.setListName(rs.getString("list_name"));
+            list.setCompletedYn(rs.getString("completed_yn"));
             list.setRegDt(rs.getDate("reg_dt"));
             list.setRegId(rs.getString("reg_id"));
             list.setRegIp(rs.getString("reg_ip"));
@@ -28,7 +28,7 @@ public class ListDao {
             list.setModIp(rs.getString("mod_ip"));
             list.setDelYn(rs.getString("del_yn"));
             return list;
-        });
+        }, userNo);
     }
 
     public int insertList(ListDto list) {
