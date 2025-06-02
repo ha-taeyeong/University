@@ -1,11 +1,11 @@
 package com.example.myproject.controller;
 
 import com.example.myproject.dto.User;
+import com.example.myproject.security.JwtUtil;
 import com.example.myproject.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -14,9 +14,20 @@ import java.util.List;
 public class UserRestController {
 
     private final UserService userService;
+    private final JwtUtil jwtUtil;
 
-    public UserRestController(UserService userService) {
+    public UserRestController(UserService userService, JwtUtil jwtUtil) {
         this.userService = userService;
+        this.jwtUtil = jwtUtil;
+    }
+
+    private String getUserIdFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            String token = bearerToken.substring(7);
+            return jwtUtil.extractUserId(token);
+        }
+        return null;
     }
 
     @GetMapping
@@ -26,7 +37,7 @@ public class UserRestController {
 
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody User user, HttpServletRequest request) {
-        String regId = "system"; // 임시 등록자
+        String regId = user.getUserId();
         String regIp = request.getRemoteAddr();
         String delYn = "N"; // 기본값
         int result = userService.createUser(user, regId, regIp, delYn);
@@ -38,7 +49,10 @@ public class UserRestController {
     @PutMapping("/{userNo}")
     public ResponseEntity<String> updateUser(@PathVariable int userNo, @RequestBody User user, HttpServletRequest request) {
         user.setUserNo(userNo);
-        String modId = "system";
+        String modId = getUserIdFromRequest(request); // JWT에서 추출
+        if (modId == null) {
+            return ResponseEntity.status(401).body("Invalid or missing JWT token");
+        }
         String modIp = request.getRemoteAddr();
         int result = userService.updateUser(user, modId, modIp);
         return result > 0 ?
@@ -50,7 +64,10 @@ public class UserRestController {
     public ResponseEntity<String> deleteUser(@PathVariable int userNo, HttpServletRequest request) {
         User user = new User();
         user.setUserNo(userNo);
-        String modId = "system";
+        String modId = getUserIdFromRequest(request); // JWT에서 추출
+        if (modId == null) {
+            return ResponseEntity.status(401).body("Invalid or missing JWT token");
+        }
         String modIp = request.getRemoteAddr();
         String delYn = "Y"; // 기본값
         int result = userService.deleteUser(user, modId, modIp, delYn);
