@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
+    public static void write(ArrayList<String> list) {
+        System.out.println("------ 리스트 출력 ------");
+        list.forEach(System.out::println);
+    }
+
     public static void main(String[] args) {
         String[] s = { "사과", "배", "바나나" };
         ArrayList<String> list = new ArrayList(Arrays.asList(s));  //배열을 리스트로 변환
@@ -15,10 +20,7 @@ public class Main {
         list.add(2,"자몽");
 
         // ③	리스트에 저장된 데이터 출력
-        System.out.println("------ 리스트 출력 ------");
-        for(String str: list) {
-            System.out.println(str);
-        }
+        write(list);
 
         // ④	인덱스 3에 저장된 데이터 출력
         String a = list.get(3);
@@ -30,8 +32,7 @@ public class Main {
         System.out.println("배가 저장된 위치 : " + idx);
 
         // ⑤	인덱스 2에 저장된 데이터를 “메론”으로 변경
-        list.remove(2);
-        list.add(2, "메론");
+        list.set(2, "메론");
 
         // ⑥	“배” 를 리스트 마지막에 삽입
         list.add(list.size(), "배");
@@ -40,9 +41,6 @@ public class Main {
         list.remove("바나나");
 
         // ⑨	리스트에 저장된 데이터 출력
-        System.out.println("------ 리스트 출력 ------");
-        for(String str: list) {
-            System.out.println(str);
-        }
+        write(list);
     }
 }
