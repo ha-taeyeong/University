@@ -27,13 +27,15 @@ public class ListDao {
             list.setModId(rs.getString("mod_id"));
             list.setModIp(rs.getString("mod_ip"));
             list.setDelYn(rs.getString("del_yn"));
+            list.setListDate(rs.getDate("list_date").toLocalDate());
             return list;
         }, userNo);
     }
 
     public int insertList(ListDto list) {
-        String sql = "INSERT INTO todo_list (user_no, list_name, completed_yn, reg_dt, reg_id, reg_ip, del_yn) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO todo_list (user_no, list_name, completed_yn, reg_dt, reg_id, reg_ip, del_yn, list_date) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
         return jdbcTemplate.update(sql,
                 list.getUserNo(),
                 list.getListName(),
@@ -41,16 +43,18 @@ public class ListDao {
                 list.getRegDt(),
                 list.getRegId(),
                 list.getRegIp(),
-                list.getDelYn()
+                list.getDelYn(),
+                java.sql.Date.valueOf(list.getListDate())
         );
     }
 
     public int updateList(ListDto list) {
-        String sql = "UPDATE todo_list SET list_name = ?, completed_yn = ?, mod_dt = ?, mod_id = ?, mod_ip = ? " +
-                     "WHERE list_no = ?";
+        String sql = "UPDATE todo_list SET list_name = ?, completed_yn = ?, list_date = ?, mod_dt = ?, mod_id = ?, mod_ip = ? " +
+                "WHERE list_no = ?";
         return jdbcTemplate.update(sql,
                 list.getListName(),
                 list.getCompletedYn(),
+                java.sql.Date.valueOf(list.getListDate()),
                 list.getModDt(),
                 list.getModId(),
                 list.getModIp(),
@@ -60,7 +64,7 @@ public class ListDao {
 
     public int deleteList(ListDto list) {
         String sql = "UPDATE todo_list SET mod_dt = ?, mod_id = ?, mod_ip = ?, del_yn = ?" +
-                     "WHERE list_no = ?";
+                "WHERE list_no = ?";
         return jdbcTemplate.update(sql,
                 list.getModDt(),
                 list.getModId(),
@@ -90,6 +94,7 @@ public class ListDao {
             list.setModId(rs.getString("mod_id"));
             list.setModIp(rs.getString("mod_ip"));
             list.setDelYn(rs.getString("del_yn"));
+            list.setListDate(rs.getDate("list_date").toLocalDate());
             return list;
         }, listNo);
         return lists.isEmpty() ? null : lists.get(0); // 결과가 없으면 null 반환

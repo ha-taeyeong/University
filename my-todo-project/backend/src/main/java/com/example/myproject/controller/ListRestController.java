@@ -1,13 +1,11 @@
 package com.example.myproject.controller;
 
 import com.example.myproject.dto.ListDto;
-import com.example.myproject.dto.User;
 import com.example.myproject.security.JwtUtil;
 import com.example.myproject.service.ListService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +38,9 @@ public class ListRestController {
             HttpServletRequest request) {
         String token = authHeader.replace("Bearer ", "");
         Long userNo = jwtUtil.extractUserNo(token);
+        list.setUserNo(userNo);
+        System.out.println("list.getUserNo(): " + list.getUserNo());
+
         String completedYn = "N";
         String regId = String.valueOf(userNo); // 실제 사용자 번호로 등록자 지정
         String regIp = request.getRemoteAddr();

@@ -78,6 +78,11 @@
                     @keyup.enter="saveEdit(idx, list)"
                     class="border rounded px-2 py-1 w-full focus:ring-2 focus:ring-indigo-500"
                 />
+                <input
+                    type="date"
+                    v-model="editDate"
+                    class="border rounded px-2 py-1 w-full mt-2 focus:ring-2 focus:ring-indigo-500"
+                />
               </template>
             </td>
             <!-- 수정/저장/취소 버튼 -->
@@ -143,6 +148,7 @@ const router = useRouter() // [1] 라우터 인스턴스
 const lists = ref([])
 const showModal = ref(false)
 const editName = ref('')
+const editDate = ref('')
 const editIndex = ref(null)
 const editCompletedYn = ref('N')
 const showConfirm = ref(false)
@@ -175,8 +181,7 @@ function onSaved() {
 const fetchLists = async () => {
   try {
     const res = await axios.get('/api/list')
-    // console.log('응답 데이터:', res.data)
-    lists.value = res.data.filter(item => item.delYn === "N") // delYn이 없으면 그냥 res.data
+    lists.value = res.data.filter(item => item.delYn === "N")
   } catch (e) {
     console.error('리스트 불러오기 실패:', e)
   }
@@ -187,6 +192,7 @@ function startEdit(idx, list) {
   editIndex.value = idx
   editName.value = list.listName
   editCompletedYn.value = list.completedYn
+  editDate.value = list.listDate ? list.listDate.slice(0, 10) : ''
 }
 
 // [수정 저장]
@@ -196,6 +202,7 @@ async function saveEdit(idx, list) {
       ...list,
       listName: editName.value,
       completedYn: editCompletedYn.value,
+      listDate: editDate.value
     })
     await fetchLists()
     editIndex.value = null

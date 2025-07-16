@@ -1,12 +1,13 @@
 package com.example.myproject.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 import lombok.Data;
 
 @Data
 public class ListDto {
     private int listNo;
-    private int userNo;
+    private long userNo;
     private String listName;
     private String completedYn;
     private Date regDt;
@@ -16,4 +17,5 @@ public class ListDto {
     private String modId;
     private String modIp;
     private String delYn;
+    private LocalDate listDate;
 }

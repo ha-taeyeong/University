@@ -7,6 +7,10 @@
         {{ list.listName }}
       </p>
       <p>
+        <span class="font-semibold text-gray-700">리스트 날짜:</span>
+        {{ formatDate(list.listDate) }}
+      </p>
+      <p>
         <span class="font-semibold text-gray-700">완료여부:</span>
         <span :class="list.completedYn === 'Y' ? 'text-green-600' : 'text-gray-500'">
           {{ list.completedYn === 'Y' ? '완료' : '미완료' }}
@@ -14,7 +18,7 @@
       </p>
       <p>
         <span class="font-semibold text-gray-700">등록일:</span>
-        {{ list.regDt }}
+        {{ formatDate(list.regDt) }}
       </p>
       <!-- 기타 정보 표시 -->
     </div>
@@ -29,6 +33,12 @@
 
 <script>
 import axios from 'axios';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 export default {
   data() {
     return { list: null };
@@ -37,7 +47,15 @@ export default {
     const listNo = this.$route.params.listNo;
     axios.get(`/api/list/${listNo}`).then(res => {
       this.list = res.data;
+      console.log('API 응답:', res.data);
+    }).catch(err => {
+      console.error('API 에러:', err);
     });
+  },
+  methods: {
+    formatDate(date) {
+      return date ? dayjs.utc(date).tz('Asia/Seoul').format('YYYY-MM-DD') : '';
+    }
   }
 };
 </script>
