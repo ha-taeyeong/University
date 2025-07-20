@@ -2,16 +2,31 @@
   <div>
     <div class="max-w-3xl mx-auto py-10">
       <h2 class="text-2xl font-bold mb-6 text-center">나의 리스트</h2>
-      <div class="flex justify-end mb-4">
+      <div class="flex justify-between items-center mb-4 gap-2">
+        <!-- 날짜 필터 그룹 -->
+        <div class="flex items-center gap-2">
+          <input
+              type="date"
+              v-model="selectedDate"
+              class="border rounded px-3 py-2 focus:ring-2 focus:ring-indigo-500"
+          />
+          <button
+              @click="fetchLists"
+              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            날짜별 조회
+          </button>
+        </div>
+        <!-- 리스트 추가 버튼 -->
         <button
             @click="openAddForm"
             class="bg-indigo-600 text-white px-5 py-2 rounded-lg font-bold shadow-md
-         hover:bg-indigo-700 hover:scale-105 active:scale-95 transition
-         focus:outline-none focus:ring-2 focus:ring-indigo-400"
+      hover:bg-indigo-700 hover:scale-105 active:scale-95 transition
+      focus:outline-none focus:ring-2 focus:ring-indigo-400"
         >
           리스트 추가
         </button>
-        <transition name="fade">
+      <transition name="fade">
           <div v-if="showModal" class="fixed inset-0  z-50 flex items-center justify-center">
             <!-- 반투명 오버레이 -->
             <div class="fixed inset-0 bg-black bg-opacity-30" @click="closeModal"></div>
@@ -136,7 +151,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter } from 'vue-router' // [1] 라우터 임포트
 import axios from 'axios'
 import ListForm from "@/views/ListForm.vue";
@@ -153,6 +168,15 @@ const editIndex = ref(null)
 const editCompletedYn = ref('N')
 const showConfirm = ref(false)
 const targetListNo = ref(null)
+const selectedDate = ref(getLocalToday());
+
+function getLocalToday() {
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
 
 // [상세 페이지 이동]
 function goToDetail(listNo) {
@@ -180,7 +204,20 @@ function onSaved() {
 // [리스트 데이터 조회]
 const fetchLists = async () => {
   try {
-    const res = await axios.get('/api/list')
+    if (!selectedDate.value) {
+      // 날짜가 없을 경우 전체 조회 (또는 에러처리 원하는 대로)
+      lists.value = []
+      return
+    }
+    const token = localStorage.getItem('token') // 토큰을 저장해둔 곳에서 가져옵니다.
+    const res = await axios.get('/api/list', {
+      headers: {
+        Authorization: `Bearer ${token}` // JWT 토큰 앞에 'Bearer '를 붙입니다.
+      },
+      params: {
+        date: selectedDate.value // 필요한 쿼리 파라미터
+      }
+    })
     lists.value = res.data.filter(item => item.delYn === "N")
   } catch (e) {
     console.error('리스트 불러오기 실패:', e)
@@ -248,6 +285,8 @@ onMounted(() => {
   fetchLists()
   window.addEventListener('keydown', escClose)
 })
+
+watch(selectedDate, fetchLists)
 
 // [언마운트 시 ESC 이벤트 해제]
 onUnmounted(() => {

@@ -7,6 +7,7 @@ import com.example.myproject.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +24,11 @@ public class ListService {
         this.jwtUtil = jwtUtil;
     }
 
-    public List<ListDto> getListByUserNo(Long userNo) {
-        return listDao.findByUserNo(userNo); // DAO 메서드 구현 필요
+    public List<ListDto> getListByUserNo(Long userNo, LocalDate listDate) {
+        if (listDate == null) {
+            throw new IllegalArgumentException("listDate는 null일 수 없습니다.");
+        }
+        return listDao.findByUserNo(userNo, listDate);
     }
 
     public int createList(ListDto list, String completedYn, String regId, String regIp, String delYn) {

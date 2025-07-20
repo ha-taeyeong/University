@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -24,10 +25,19 @@ public class ListRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ListDto>> getMyLists(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<List<ListDto>> getMyLists(
+            @RequestHeader("Authorization") String authHeader,
+            @RequestParam("date") String dateStr // yyyy-MM-dd 형식
+    ) {
         String token = authHeader.replace("Bearer ", "");
         Long userNo = jwtUtil.extractUserNo(token);
-        List<ListDto> myLists = listService.getListByUserNo(userNo);
+        LocalDate listDate;
+        try {
+            listDate = LocalDate.parse(dateStr); // 날짜 포맷 변환
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        List<ListDto> myLists = listService.getListByUserNo(userNo, listDate);
         return ResponseEntity.ok(myLists);
     }
 

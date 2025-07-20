@@ -3,6 +3,8 @@ package com.example.myproject.dao;
 import com.example.myproject.dto.ListDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -12,8 +14,8 @@ public class ListDao {
 
     public ListDao(JdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
 
-    public List<ListDto> findByUserNo(Long userNo) {
-        String sql = "SELECT * FROM todo_list WHERE user_no = ?";
+    public List<ListDto> findByUserNo(Long userNo, LocalDate listDate) {
+        String sql = "SELECT * FROM todo_list WHERE user_no = ? AND list_date = ?";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             ListDto list = new ListDto();
             list.setListNo(rs.getInt("list_no"));
@@ -27,9 +29,12 @@ public class ListDao {
             list.setModId(rs.getString("mod_id"));
             list.setModIp(rs.getString("mod_ip"));
             list.setDelYn(rs.getString("del_yn"));
-            list.setListDate(rs.getDate("list_date").toLocalDate());
+            java.sql.Date sqlDate = rs.getDate("list_date");
+            if (sqlDate != null) {
+                list.setListDate(sqlDate.toLocalDate());
+            }
             return list;
-        }, userNo);
+        }, userNo, java.sql.Date.valueOf(listDate));
     }
 
     public int insertList(ListDto list) {
