@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+	   	http://www.springframework.org/schema/beans
+	   	https://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Ex exc = new Ex(); -->
+	<bean id = "exc" class="week4_2.Ex" >
+		<!-- setName을 호출 -->
+		<property name="name" value="홍길동"/>
+		<property name="scores">
+			<list>
+				<value>90</value>
+				<value>80.5</value>
+				<value>100</value>
+			</list>
+		</property>
+		
+	</bean>
+
+</beans>
+

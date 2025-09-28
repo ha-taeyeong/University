@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="helloWorldService" class="edu.mytest.HelloWorldServiceImpl">
+		<constructor-arg value="안녕하세요. 생성자에서 보내는 메시지 입니다." />
+		<!-- <property name="hello" value="안녕하세요.XML파일에서 보내는 메시지 입니다." /> -->
+	</bean>
+</beans>
