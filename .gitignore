@@ -37,4 +37,6 @@ desktop.ini
 *.bak
 *.~*
 
-3-2/UnityProjects/20237107VRARGAME/HelloUnity/Library/
+# ===== Unity =====
+UnityProjects/
+메타버스/
