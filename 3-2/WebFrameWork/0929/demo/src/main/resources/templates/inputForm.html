@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>성적 입력</title>
+    <style>
+        .center-box { width: 80%; margin: auto; border: 2px solid #3B4B4B; padding: 2em; }
+        .form-row { margin-bottom: 2em; display: flex; align-items: center; }
+        .form-row label { width: 20%; font-size: 1.5em; }
+        .form-row input { width: 70%; font-size: 1.25em; padding: .5em; }
+        .button-row { text-align: center; }
+        .btn { width: 120px; height: 60px; font-size: 1.5em; font-weight: bold; border: none; border-radius: 7px; margin-right: 1em; }
+        .btn-submit { background-color: #91C47B; }
+        .btn-cancel { background-color: #F32424; color: white; }
+    </style>
+</head>
+<body>
+    <div class="center-box">
+        <form action="/result" method="post" th:object="${scoreDTO}">
+            <div class="form-row">
+                <label>이름</label>
+                <input type="text" th:field="*{name}" autocomplete="off"/>
+            </div>
+            <div class="form-row">
+                <label>점수1</label>
+                <input type="number" th:field="*{score1}" step="any"/>
+            </div>
+            <div class="form-row">
+                <label>점수2</label>
+                <input type="number" th:field="*{score2}" step="any"/>
+            </div>
+            <div class="form-row">
+                <label>점수3</label>
+                <input type="number" th:field="*{score3}" step="any"/>
+            </div>
+            <div class="button-row">
+                <button type="submit" class="btn btn-submit">전송</button>
+                <button type="reset" class="btn btn-cancel">취소</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

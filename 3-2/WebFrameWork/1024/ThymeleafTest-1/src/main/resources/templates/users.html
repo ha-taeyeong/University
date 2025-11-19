@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${title}">사용자 목록</title>
+</head>
+<body>
+	<div th:replace="fragments :: header"></div>
+	
+	<h2 th:text="${title}">사용자 목록</h2>
+	<ul>
+		<li th:each="user:${userList}" th:text="${user}">기본 사용자</li>
+	</ul>
+	
+	<a th:href="@{/users/new}">새 회원 등록</a>
+	
+	<div th:replace="fragments :: footer"></div>
+</body>
+</html>

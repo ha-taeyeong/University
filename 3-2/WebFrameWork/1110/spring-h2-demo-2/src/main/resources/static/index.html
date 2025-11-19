@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>날짜 요일 계산기</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+        
+        <div style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);">
+            <h1>날짜별 요일 계산기</h1>
+
+            <!-- POST 방식 폼: /getDate3 -->
+            <div>
+                <h2>날짜 입력 (POST 요청: /getDate3)</h2>
+                <form action ="/getDate3" method = "POST" style="margin-top: 15px;">
+                    <div style="margin-bottom: 10px;">
+                        <label for="year">년 :</label>
+                        <input name="year" type="number" id="year" placeholder="YYYY" value="2025" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <label for="month">월 :</label>
+                        <input name="month" type="number" id="month" placeholder="MM" value="11" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <label for="day">일 :</label>
+                        <input name="day" type="number" id="day" placeholder="DD" value="10" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box;">
+                    </div>
+                    
+                    <button type="submit" style="width: 100%; padding: 10px; background-color: #5a5a5a; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px;">
+                        요일 계산 요청
+                    </button>
+                </form>
+            </div>
+            <hr style="margin: 20px 0; border: none; border-top: 1px dashed #ccc;">
+            <p style="text-align: center; font-size: 14px; color: #666;">
+                <a href="http://localhost:8080/getDate3?year=2025&month=11&day=10" style="color: #007bff; text-decoration: none;">GET 요청으로 테스트하기 (파라미터 포함)</a>
+            </p>
+        </div>
+	</body>
+</html>
