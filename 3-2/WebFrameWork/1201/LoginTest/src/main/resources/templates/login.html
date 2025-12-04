@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>로그인 화면</title>
+	</head>
+	<body>
+		<h1 th:text="${param.msg}"></h1>
+		<form action="/login/login" method="post">
+			id : <input type="text" name="id"> <br>
+			pwd : <input type="password" name="pwd"> <br>
+			<input type="submit" value="로그인"> <br>
+		</form>
+	</body>
+</html>
