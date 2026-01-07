@@ -54,3 +54,10 @@ test {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// bootJar 태스크를 구성하여 메인 클래스를 명시적으로 지정합니다.
+tasks.named('bootJar') {
+    // 실제 메인 클래스의 패키지 경로와 이름을 여기에 정확히 입력해야 합니다.
+    // 예: 'com.example.mytodoproject.BackendApplication'
+    mainClass = 'com.example.BackendApplication' // <- 이 부분을 실제 경로로 수정해야 함
+}
